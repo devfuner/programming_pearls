@@ -24,14 +24,12 @@ from random import shuffle
 from memory_profiler import profile
 
 
-@profile
 def init_file(filename):
     with open(filename, 'w') as f:
         for num in unique_list():
             print(num, file=f)
 
 
-@profile
 def unique_list():
     """
     특정 범위의 유니크한 숫자 리스트를 가져오는 함수
@@ -43,7 +41,6 @@ def unique_list():
     return arr
 
 
-@profile
 def check_unique(_list):
     from collections import Counter
     cnts = Counter(_list).most_common()
@@ -53,7 +50,6 @@ def check_unique(_list):
             print('ALERT!!!', word)
 
 
-@profile
 def read_file():
     nums = []
     with open('number.txt', 'r') as f:
@@ -62,7 +58,6 @@ def read_file():
     return nums
 
 
-@profile
 def bit_sort(_list, limit):
     b = []
     for i in range(limit):
@@ -73,7 +68,6 @@ def bit_sort(_list, limit):
     return b
 
 
-@profile
 def sorted_file(nums):
     with open('sorted.txt', 'w') as f:
         for idx, flag in enumerate(nums):
