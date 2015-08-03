@@ -19,6 +19,9 @@ class BitVetorException(Exception):
 
 
 class BitVetor(object):
+    def __init__(self, bit):
+        self.bit = bit
+
     def push(self, bit, num):
         n = 0b1 << (num-1)
         if self.pop(bit, num) > 0:
@@ -34,4 +37,3 @@ if __name__ == '__main__':
     bitvetor.push(0b0111, 4)  # 15
     bitvetor.pop(0b0111, 3)  # 4
     bitvetor.pop(0b0111, 2)  # 2
-    
