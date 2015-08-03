@@ -19,21 +19,25 @@ class BitVetorException(Exception):
 
 
 class BitVetor(object):
-    def __init__(self, bit):
-        self.bit = bit
+    def __init__(self, vetor=0b0):
+        self.vetor = vetor
 
-    def push(self, bit, num):
+    def add(self, num):
         n = 0b1 << (num-1)
-        if self.pop(bit, num) > 0:
+        if self.get(num) > 0:
             raise BitVetorException('value exists')
-        return bit | n
+        self.vetor = self.vetor | n
+        return self.vetor
 
-    def pop(self, bit, num):
+    def get(self, num):
         n = 0b1 << (num-1)
-        return bit & n
+        return self.vetor & n
+
+    def clear(self):
+        self.vetor = 0b0
 
 if __name__ == '__main__':
-    bitvetor = BitVetor()
-    bitvetor.push(0b0111, 4)  # 15
-    bitvetor.pop(0b0111, 3)  # 4
-    bitvetor.pop(0b0111, 2)  # 2
+    b = BitVetor()
+    b.add(3)  # 4
+    b.get(3)  # 4
+    b.clear()  # 0
