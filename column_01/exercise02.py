@@ -10,7 +10,7 @@
 # ==============================================================================
 
 
-class BitVetorException(Exception):
+class BitVectorException(Exception):
     def __init__(self, value):
         self.value = value
 
@@ -18,26 +18,73 @@ class BitVetorException(Exception):
         return self.value
 
 
-class BitVetor(object):
-    def __init__(self, vetor=0b0):
-        self.vetor = vetor
+class BitVector(object):
+    BITSPERWORD = 32
+    SHIFT = 5
+    MASK = 0x1F
+    LIMIT = 10000000
+    VECTOR = [0 for _ in range(int(LIMIT / BITSPERWORD))]
 
-    def add(self, num):
-        n = 0b1 << (num-1)
-        if self.get(num) > 0:
-            raise BitVetorException('value exists')
-        self.vetor = self.vetor | n
-        return self.vetor
+    def set(self, num):
+        self.VECTOR[num >> self.SHIFT] |= (1 << (num & self.MASK))
 
-    def get(self, num):
-        n = 0b1 << (num-1)
-        return self.vetor & n
+    def clear(self, num):
+        self.VECTOR[num >> self.SHIFT] &= ~(1 << (num & self.MASK))
 
-    def clear(self):
-        self.vetor = 0b0
+    def test(self, num):
+        return self.VECTOR[num >> self.SHIFT] & (1 << (num & self.MASK))
+
+
+import os
+from random import shuffle
+from memory_profiler import profile
+
+
+def init_file(filename):
+    with open(filename, 'w') as f:
+        for num in unique_list():
+            print(num, file=f)
+
+
+def unique_list():
+    """
+    특정 범위의 유니크한 숫자 리스트를 가져오는 함수
+    """
+    arr = []
+    for i in range(1000000, 10000000):
+        arr.append(i)
+    shuffle(arr)
+    return arr
+
+
+def check_unique(_list):
+    from collections import Counter
+    cnts = Counter(_list).most_common()
+    for cnt in cnts:
+        word, c = cnt
+        if c > 1:
+            print('ALERT!!!', word)
+
+
+def read_file():
+    vector = BitVector()
+    with open('number.txt', 'r') as f:
+        for line in f.readlines():
+            vector.set(int(line))
+    return vector
+
+
+def sorted_file(vector, limit):
+    with open('sorted.txt', 'w') as f:
+        for i in range(limit):
+            if vector.test(i) > 0:
+                print(i, file=f)
+
 
 if __name__ == '__main__':
-    b = BitVetor()
-    b.add(3)  # 4
-    b.get(3)  # 4
-    b.clear()  # 0
+    limit = 10000000
+    filename = 'number.txt'
+    if not os.path.exists(filename):
+        init_file(filename, limit)
+    vector = read_file()
+    sorted_file(vector, limit)
