@@ -27,7 +27,7 @@ def unique_list():
     특정 범위의 유니크한 숫자 리스트를 가져오는 함수
     """
     arr = []
-    for i in range(10 ** 6, 10 ** 7):
+    for i in range(1000000, 10000000):
         arr.append(i)
     shuffle(arr)
     return arr
@@ -60,7 +60,7 @@ def sorted_file(nums):
 
 
 if __name__ == '__main__':
-    limit = 10 ** 7
+    limit = 10000000
     filename = 'number.txt'
     if not os.path.exists(filename):
         init_file(filename, limit)
