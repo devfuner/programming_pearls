@@ -21,4 +21,10 @@ Line #    Mem usage    Increment   Line Contents
     57    423.9 MiB      0.1 MiB       with open('sorted.txt', 'w') as f:
     58    424.1 MiB      0.2 MiB           for num in nums:
     59    424.1 MiB      0.0 MiB               print(num, file=f)
+
+devfunerui-MacBook-Air:column_01 devfuner$ time python exercise01.py
+
+real    0m32.840s
+user    0m31.113s
+sys 0m1.144s
 ```

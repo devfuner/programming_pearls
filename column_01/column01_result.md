@@ -38,4 +38,11 @@ Line #    Mem usage    Increment   Line Contents
     79    388.0 MiB      8.1 MiB           for idx, flag in enumerate(nums):
     80    388.0 MiB      0.0 MiB               if flag == 1:
     81    388.0 MiB      0.0 MiB                   print(idx, file=f)
+
+
+devfunerui-MacBook-Air:column_01 devfuner$ time python column01.py
+
+real    0m25.663s
+user    0m22.873s
+sys 0m1.838s
 ```
